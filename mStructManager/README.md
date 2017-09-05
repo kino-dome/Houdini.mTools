@@ -68,8 +68,24 @@ for (int i=0; i<count; i++){
 
 manager -> close();
 ```
+5- Whenever you were done with the instances you can remove them from the geometry:
+```C
+#include <StructManager.h>
+#include <Ball.h>
 
-5- Last but not least, you need to have this bit of code for any struct you want to use with this system. You can duplicate most of the code except for the getTag() function where you'll write down your struct's name and setup()/opnePointNumber()/close() functions where you'll need to change according to your struct's data members:
+StructManager manager = openStructManager(geoself());
+
+Ball ball = Ball(); 
+int count = manager -> getCount(ball -> getTag());
+for (int i=0; i<count; i++){
+    ball -> openId(manager, i);
+    ball -> remove(manager, 1);
+}
+
+manager -> close();
+```
+
+6- Last but not least, you need to have this bit of code for any struct you want to use with this system. You can duplicate most of the code except for the getTag() function where you'll write down your struct's name and setup()/opnePointNumber()/close() functions where you'll need to change according to your struct's data members:
 
 ```C
     string      mTag;
@@ -87,9 +103,9 @@ manager -> close();
         if (mTag != "")
         return mTag;
         else
-        ///////////////// YOUR CLASS' name
+        ///////////////// YOUR CLASS' NAME
         return "Ball";
-        ///////////////// YOUR CLASS' name
+        ///////////////// YOUR CLASS' NAME
     }
 
     void setup(StructManager aManager)
